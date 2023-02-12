@@ -1,0 +1,122 @@
+<mvc:View
+	controllerName="sap.ui.table.sample.Basic.Controller"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+  xmlns:n="sap.m.Text"
+    height="100%">
+    
+	<m:Page
+		showHeader="false"
+		enableScrolling="false"
+		class="sapUiContentPadding">
+		<m:content>
+    <m:Text text="Physical Inventory Document: 6000000097"/>
+			<Table
+				rows="{/ProductCollection}"
+				selectionMode="MultiToggle"
+				visibleRowCount="7"
+				paste="onPaste"
+				ariaLabelledBy="title">
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title id="title" text="General Information"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+					<Column width="11rem">
+						<m:Label text="Storage Bin" />
+						<template>
+							<m:Text text="50-PSA-010" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Bin Empty" />
+						<template>
+							<m:Input value="{nothing}"/>
+						</template>
+					</Column>
+					<Column width="6rem" hAlign="End">
+						<m:Label text="Handling Unit" />
+						<template>
+							<m:Label text="{nothing}" />
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Product" />
+						<template>
+							<m:Label text="{Name}" />
+						</template>
+					</Column>
+          <Column width="9rem">
+						<m:Label text="Price" />
+						<template>
+							<u:Currency value="{Price}" currency="{CurrencyCode}"/>
+						</template>
+					</Column>
+					<Column width="9rem">
+						<m:Label text="Product Description" />
+						<template>
+							<m:Label text="{De}" />
+						</template>
+					</Column>
+          <Column width="9rem">
+						<m:Label text="Status" />
+						<template>
+							<m:ObjectStatus text="{Status}" state="{
+								path: 'Available',
+								formatter: '.formatAvailableToObjectState'
+							}"/>
+						</template>
+					</Column>
+					<Column width="9rem">
+						<m:Label text="Count Refrence" />
+						<template>
+							<m:Label text="{nothing}" />
+						</template>
+					</Column>
+          
+					<Column width="12rem">
+						<m:Label text="Quantity" />
+						<template>
+							<m:MultiInput
+								tokenUpdate="updateMultipleSelection"
+								value="{Quantity}"
+								tokens="{AdditionalCategoriesSelection}"
+								suggestionItems="{
+									path: '/Categories',
+									sorter: { path: 'Name' }
+								}"
+								showValueHelp="false"
+								>
+								<m:tokens>
+									<m:Token key="{Key}" text="{Name}"/>
+								</m:tokens>
+								<m:suggestionItems>
+									<c:Item key="{ProductId}" text="{Name}" />
+								</m:suggestionItems>
+							</m:MultiInput>
+						</template>
+					</Column>
+
+          <Column width="12rem">
+						<m:Label text="Main Category" />
+						<template>
+							<m:Select selectedKey="{Category}" items="{/Categories}">
+								<c:Item text="{Name}" key="{Name}"/>
+							</m:Select>
+						</template>
+					</Column>
+					<Column width="11rem">
+						<m:Label text="Assign Count Reference" />
+						<template>
+							<m:Button text="Assign" press="handleDetailsPress"/>
+						</template>
+					</Column>
+				</columns>
+			</Table>
+		</m:content>
+	</m:Page>
+</mvc:View>
